@@ -25,7 +25,7 @@
       margin: 8px;
       border: 8px solid #fff;
       border-radius: 50%;
-      animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      animation: lds-ring 1s linear infinite;
       border-color: #fff transparent transparent transparent;
     }
     .lds-ring div:nth-child(1) { animation-delay: -0.45s; }
@@ -41,35 +41,35 @@
       color: #333;
     }
   </style>
+  <script>
+    // Ejecutar el fetch lo antes posible
+    window.addEventListener('DOMContentLoaded', () => {
+      const AS_URL_BASE = "https://script.google.com/macros/s/AKfycbzTb-dfDn8MaV1naATb8DmEPAk_sSAgvqTZWGpCAi8Hv68iqAskM8Vu2MF-7SvTZLsYKA/exec";
+      const params = new URLSearchParams(window.location.search);
+      const k = params.get("k");
+
+      if (k) {
+        fetch(`${AS_URL_BASE}?k=${encodeURIComponent(k)}`)
+          .then(response => response.text())
+          .then(url => {
+            if (url && url.startsWith("http")) {
+              window.location.href = url;  // Usa href para redirigir rápido
+            } else {
+              document.querySelector(".message").innerText = "No se encontró la URL de redirección.";
+            }
+          })
+          .catch(error => {
+            console.error(error);
+            document.querySelector(".message").innerText = "Ocurrió un error. Inténtalo más tarde.";
+          });
+      } else {
+        document.querySelector(".message").innerText = "Parámetro 'k' faltante o incorrecto.";
+      }
+    });
+  </script>
 </head>
 <body>
   <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
   <div class="message">Redireccionando, por favor espera...</div>
-
-  <script>
-    // Pega aquí tu URL pública de Apps Script
-    const AS_URL_BASE = "https://script.google.com/macros/s/AKfycbzTb-dfDn8MaV1naATb8DmEPAk_sSAgvqTZWGpCAi8Hv68iqAskM8Vu2MF-7SvTZLsYKA/exec";
-
-    const params = new URLSearchParams(window.location.search);
-    const k = params.get("k");
-
-    if (k) {
-      fetch(`${AS_URL_BASE}?k=${encodeURIComponent(k)}`)
-        .then(response => response.text())
-        .then(url => {
-          if (url && url.startsWith("http")) {
-            window.location.replace(url);
-          } else {
-            document.querySelector(".message").innerText = "No se encontró la URL de redirección.";
-          }
-        })
-        .catch(error => {
-          console.error(error);
-          document.querySelector(".message").innerText = "Ocurrió un error. Inténtalo más tarde.";
-        });
-    } else {
-      document.querySelector(".message").innerText = "Parámetro 'k' faltante o incorrecto.";
-    }
-  </script>
 </body>
 </html>
