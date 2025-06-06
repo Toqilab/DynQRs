@@ -52,10 +52,10 @@
     const AS_URL_BASE = "https://script.google.com/macros/s/AKfycbzMiTCZRJLnR122HEqcYjA5PPBrPfEhXa6Nd-mVJLpnY-RnUskoVslmzicy0Vnypa_bQA/exec";
     
     var url = document.location.href;
-    var k = url.substr(url.lastIndexOf("rm=")+2);
+    var k = url.substr(url.lastIndexOf("k=")+2);
     
     if(k){
-      fetch(AS_URL_BASE+'&rm='+rm)
+      fetch(AS_URL_BASE+'?k='+k)
       .then(r => r.text())
       .then((r) => {
         console.log(r);
