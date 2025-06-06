@@ -55,7 +55,7 @@
     var k = url.substr(url.lastIndexOf("rm=")+2);
     
     if(k){
-      fetch(AS_URL_BASE+'&rm='+k)
+      fetch(AS_URL_BASE+'&rm='+rm)
       .then(r => r.text())
       .then((r) => {
         console.log(r);
