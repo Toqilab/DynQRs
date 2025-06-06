@@ -47,7 +47,7 @@
   <div class="message">Redireccionando, por favor espera...</div>
 
   <script>
-    const AS_URL_BASE = "https://script.google.com/macros/s/AKfycbyfKwLuY9nWW6PhuhXbdF1R_MM6mI-LgpPviTJ_zM92yt5jyzBBTq5b7r1TYgjVAPbjSA/exec";
+    const AS_URL_BASE = "https://script.google.com/macros/s/AKfycbyEFYRTYjcT471un-Lt4snqfgTAt3fWNDzEGKURB_wcmRkcPw2cJtz5Ib5dWUPquKHcrw/exec"; // <-- Pega aquí tu URL real de Apps Script
 
     const params = new URLSearchParams(window.location.search);
     const k = params.get("k");
@@ -55,9 +55,9 @@
     if (k) {
       fetch(`${AS_URL_BASE}?k=${encodeURIComponent(k)}`)
         .then(response => response.text())
-        .then(finalUrl => {
-          if (finalUrl && finalUrl.startsWith("http")) {
-            window.location.replace(finalUrl);
+        .then(url => {
+          if (url && url.startsWith("http")) {
+            window.location.replace(url);
           } else {
             document.querySelector(".message").innerText = "No se encontró la URL de redirección.";
           }
